@@ -22,11 +22,12 @@
 
     function Path() {
         this.commands = [];
-        this.fill = 'black';
-        this.stroke = null;
+        this.fill = '#1919E3'; // Change The Hex Color Here
+        this.stroke = '#1919E3';  // Change The Hex Color Here
         this.strokeWidth = 1;
     }
 
+    // Uses adds the below array to the Path Contructor
     Path.prototype.moveTo = function (x, y) {
         this.commands.push({type: 'M', x: x, y: y});
     };
@@ -54,11 +55,12 @@
         this.commands.push.apply(this.commands, pathOrCommands);
     };
 
+
     // Draw the path to a 2D context.
     Path.prototype.draw = function (ctx) {
         var i, cmd;
         ctx.beginPath();
-        for (i = 0; i < this.commands.length; i += 1) {
+        for (i = 0; i < this.commands.length; i += pointCount) { // This continues the lines of the drawing, changing it causes things to skip.
             cmd = this.commands[i];
             if (cmd.type === 'M') {
                 ctx.moveTo(cmd.x, cmd.y);
@@ -87,7 +89,7 @@
         var i, cmd, blueCircles, redCircles;
         blueCircles = [];
         redCircles = [];
-        for (i = 0; i < this.commands.length; i += 1) {
+        for (i = 0; i < this.commands.length; i += pointDraw) {
             cmd = this.commands[i];
             if (cmd.type === 'M') {
                 blueCircles.push(cmd);
@@ -100,7 +102,7 @@
             }
         }
         function drawCircles(l) {
-            var j, PI_SQ = Math.PI * 2;
+            var j, PI_SQ = Math.PI * 1;
             ctx.beginPath();
             for (j = 0; j < l.length; j += 1) {
                 ctx.moveTo(l[j].x, l[j].y);

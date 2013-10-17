@@ -140,11 +140,11 @@
     </div>
 
     <span class="info">Roboto-Black</span>
-    <canvas id="preview" width="940" height="300" class="text"></canvas>
+    <canvas id="preview" width="900" height="600" class="text"></canvas>
     <span id="message"></span>
-    <input type="text" class="text-input" onkeyup="renderText()" value="Hello, World!"
+    <input type="text" class="text-input" onkeyup="renderText()" value="&amp;"
            autofocus id="textField">
-    <label>Font Size<input type="range" min="6" max="500" value="150" onchange="fontSizeChanged(this)"/><span id="fontSize">150</span></label>
+    <label>Font Size<input type="range" min="10" max="500" value="110" onchange="fontSizeChanged(this)"/><span id="fontSize">110</span></label>
     <label><input type="checkbox" onchange="drawPointsChanged(this)" checked="checked"/>Draw Points</label>
     <label><input type="checkbox" onchange="kerningChanged(this)" checked="checked"/>Kerning</label>
     <label><input type="checkbox" onchange="animationChanged(this)"/>Animate</label>
@@ -155,7 +155,7 @@
         Once you have the shapes, you can modify them, for example by <strong>snapping</strong> them to a virtual grid:
     </div>
 
-    <canvas id="snap" width="940" height="300" class="text"></canvas>
+    <canvas id="snap" width="900" height="600" class="text"></canvas>
     <label>Strength <input type="range" min="0" max="100" value="80" onchange="snapStrengthChanged(this)"/><span id="snapStrength">80</span></label>
     <label>Distance<input type="range" min="0" max="100" value="53" onchange="snapDistanceChanged(this)"/><span id="snapDistance">53</span></label>
     <label>X<input type="range" min="-100" max="100" value="0" onchange="snapXChanged(this)"/><span id="snapX">0</span></label>
@@ -185,17 +185,29 @@
 
     <script type="text/javascript">
         var fontReady = false;
-        var fontSize = 150;
-        var textToRender = "Hello, World!";
-        var drawPoints = true;
+        var fontSize = 200;
+        var textToRender = "&amp;";
+        var drawPoints = false;
         var kerning = true;
-        var animating = false;
+        var animating = true;
         var previewPath = null;
         var snapPath = null;
-        var snapStrength = 80;
-        var snapDistance = 53;
+        var snapStrength = 100;
+        var snapDistance = 50;
         var snapX = 0;
         var snapY = 0;
+
+        // Custom
+        var pointCount = 1;
+        var pointDraw = 1;
+        var pushPointsDown = 0.4;
+        var pushPointsUp = 0.4;
+        var pointsBase1 = 1.1;
+        var pointsBase2 = 1;
+
+        //pointsbase = .02;
+
+
 
         function drawPointsChanged(e) {
             drawPoints = e.checked;
@@ -265,15 +277,17 @@
         function renderText() {
             if (!fontReady) return;
             textToRender = document.getElementById('textField').value;
-            previewPath = font.getPath(textToRender, {x: 0, y: 200, fontSize: fontSize, kerning: kerning});
-            snapPath = font.getPath(textToRender, {x: 0, y: 200, fontSize: fontSize, kerning: kerning});
+            previewPath = font.getPath(textToRender, {x: 200, y: 200, fontSize: fontSize, kerning: kerning});
+            snapPath = font.getPath(textToRender, {x: 200, y: 200, fontSize: fontSize, kerning: kerning});
             doSnap(snapPath);
             drawPath();
         }
 
+
+
         function drawPath() {
             var previewCtx = document.getElementById('preview').getContext("2d");
-            previewCtx.clearRect(0, 0, 940, 300);
+            previewCtx.clearRect(0, 0, 900, 300);
             if (previewPath) {
                 previewPath.draw(previewCtx);
                 if (drawPoints) {
@@ -284,15 +298,15 @@
                     for (i = 0; i < previewPath.commands.length; i++) {
                         var cmd = previewPath.commands[i];
                         if (cmd.type !== 'Z') {
-                            cmd.x += (Math.random() * 0.4) - 0.2;
-                            cmd.y += (Math.random() * 0.4) - 0.2;
+                            cmd.x += (pointsBase1 * pushPointsUp) - pushPointsDown;
+                            //cmd.y += (pointsBase2 * pushPointsUp) - pushPointsDown;
                         }
                     }
                     window.requestAnimationFrame(drawPath);
                 }
             }
             var snapCtx = document.getElementById('snap').getContext("2d");
-            snapCtx.clearRect(0, 0, 940, 300);
+            snapCtx.clearRect(0, 0, 900, 300);
             if (snapPath) {
                 snapPath.draw(snapCtx);
             }
