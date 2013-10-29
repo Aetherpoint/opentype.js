@@ -1,191 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>opentype.js – JavaScript parser for OpenType and TrueType fonts.</title>
+    <title>Type Thresher, Built with Opentype.js</title>
     <meta description="A JavaScript library to manipulate the letterforms of text from the browser or node.js.">
     <meta charset="utf-8">
     <script type="text/javascript" src="opentype.js"></script>
-    <style type="text/css">
-        body {
-            font: 13px Helvetica, arial, freesans, sans--serif;
-            line-height: 1.4;
-            min-width: 1020px;
-            color: #333;
-            background-color: #fff;
-            margin: 0 0 50px 0;
-            padding: 0;
-        }
 
-        .header {
-            background: #eee;
-            color: #555;
-            border-bottom: 1px solid #ddd;
-            height: 40px;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            margin: 0;
-            padding: 9px 0 0 0;
-            font-size: 18px;
-        }
-
-        .container {
-            width: 940px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .explain {
-            color: #222;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .text-input {
-            font-size: 24px;
-            padding: 5px;
-            width: 930px;
-            display: block;
-        }
-
-        canvas.text {
-            border: 1px solid #ddd;
-            box-shadow: 1px 0 5px rgba(0, 0, 0, 0.2);
-            margin-bottom: 5px;
-        }
-
-        .wrapper {
-            border: 1px solid #ddd;
-            margin: 0 5px 10px 0;
-            float: left;
-        }
-
-        .wrapper canvas {
-            display: inline-block;
-        }
-
-        .wrapper span {
-            text-align: center;
-            background: #ddd;
-            display: block;
-        }
-
-        #message {
-            font-weight: bold;
-        }
-
-        .message {
-            clear: both;
-            font-style: oblique;
-        }
-
-        #glyphs {
-            width: 950px;
-        }
-
-        .info {
-            float: right;
-            font-size: 11px;
-            color: #999;
-        }
-
-        hr {
-            border: none;
-            border-bottom: 1px solid #ccc;
-            margin: 20px 0 20px 0;
-            padding: 0;
-        }
-
-        label {
-            font-weight: bold;
-            font-size: 12px;
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        label input[type="range"] {
-            vertical-align: middle;
-        }
-
-        a.github {
-            float: right;
-            position: relative;
-            top: -22px;
-            text-decoration: none;
-            color: #44d;
-        }
-
-        a {
-            text-decoration: none;
-            color: #44d;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 
+    
 </head>
 <body>
-<div class="header">
-    <div class="container">
-        <h1>opentype.js</h1>
-        <a class="github" href="https://github.com/nodebox/opentype.js">Fork me on GitHub</a>
-    </div>
-</div>
+<!--<div class="header">-->
+    <!--<div class="container">-->
+        <!--<h1>opentype.js</h1>-->
+        <!--<a class="github" href="https://github.com/nodebox/opentype.js">Fork me on GitHub</a>-->
+    <!--</div>-->
+<!--</div>-->
 
-<div class="container">
-
-    <div class="explain">
-        opentype.js is an OpenType and TrueType font parser.
-        It allows you to access the <strong>letterforms</strong> of text from the browser or node.js.
+    <div class="distortion">
+        <canvas id="preview" width="1200" height="900" class="text"></canvas>
     </div>
 
-    <span class="info">Roboto-Black</span>
-    <canvas id="preview" width="900" height="600" class="text"></canvas>
-    <span id="message"></span>
-    <input type="text" class="text-input" onkeyup="renderText()" value="&amp;"
-           autofocus id="textField">
-    <label>Font Size<input type="range" min="10" max="500" value="110" onchange="fontSizeChanged(this)"/><span id="fontSize">110</span></label>
-    <label><input type="checkbox" onchange="drawPointsChanged(this)" checked="checked"/>Draw Points</label>
-    <label><input type="checkbox" onchange="kerningChanged(this)" checked="checked"/>Kerning</label>
-    <label><input type="checkbox" onchange="animationChanged(this)"/>Animate</label>
+    <section class="controls">
+        <input type="text" class="text-input" onkeyup="renderText()" value="&amp;"
+               autofocus id="textField">
+        <label>Font Size<input type="range" min="10" max="1000" value="600" onchange="fontSizeChanged(this)"/><span id="fontSize">600</span></label>
+        <label><input type="checkbox" onchange="drawPointsChanged(this)">Draw Points</label>
+        <label><input type="checkbox" onchange="kerningChanged(this)" checked="checked"/>Kerning</label>
+        <label><input type="checkbox" onchange="animationChanged(this)" checked="checked"/>Animate</label>
+    </section>
 
-    <hr>
+    <!--<hr>-->
 
-    <div class="explain">
-        Once you have the shapes, you can modify them, for example by <strong>snapping</strong> them to a virtual grid:
+    <!--<div class="explain">-->
+        <!--Once you have the shapes, you can modify them, for example by <strong>snapping</strong> them to a virtual grid:-->
+    <!--</div>-->
+    <div class="redux">
+        <canvas id="snap" width="1200" height="600" class="text"></canvas>
     </div>
 
-    <canvas id="snap" width="900" height="600" class="text"></canvas>
-    <label>Strength <input type="range" min="0" max="100" value="80" onchange="snapStrengthChanged(this)"/><span id="snapStrength">80</span></label>
-    <label>Distance<input type="range" min="0" max="100" value="53" onchange="snapDistanceChanged(this)"/><span id="snapDistance">53</span></label>
-    <label>X<input type="range" min="-100" max="100" value="0" onchange="snapXChanged(this)"/><span id="snapX">0</span></label>
-    <label>Y<input type="range" min="-100" max="100" value="0" onchange="snapYChanged(this)"/><span id="snapY">0</span></label>
+    <section class="controls">
+        <label>Strength <input type="range" min="0" max="100" value="80" onchange="snapStrengthChanged(this)"/><span id="snapStrength">80</span></label>
+        <label>Distance<input type="range" min="0" max="100" value="53" onchange="snapDistanceChanged(this)"/><span id="snapDistance">53</span></label>
+        <label>X<input type="range" min="-100" max="100" value="0" onchange="snapXChanged(this)"/><span id="snapX">0</span></label>
+        <label>Y<input type="range" min="-100" max="100" value="0" onchange="snapYChanged(this)"/><span id="snapY">0</span></label>
+    </section>
 
-    <hr>
 
-    <div class="explain">
-        <h1>Glyphs</h1>
-        opentype.js provides you with <strong>raw access</strong> to the glyphs so you can modify them as you please.
-    </div>
+<!--<div class="container">-->
 
-    <div id="glyphs">
-    </div>
-    <div class="message">Only the first 100 glyphs are shown.</div>
+    <!--<div class="explain">-->
+        <!--opentype.js is an OpenType and TrueType font parser.-->
+        <!--It allows you to access the <strong>letterforms</strong> of text from the browser or node.js.-->
+    <!--</div>-->
 
-    <hr>
+    <!--<span class="info">Roboto-Black</span>-->
+        
 
-    <div class="explain">
-        <h1>Free Software</h1>
-        <p>opentype.js is available on <a href="https://github.com/nodebox/opentype.js">GitHub</a> under the <a href="https://raw.github.com/nodebox/opentype.js/master/LICENSE">MIT License</a>.</p>
-        <p>Copyright &copy; 2013 Frederik De Bleser.</p>
-    </div>
+    <!--<div class="explain">-->
+        <!--<h1>Glyphs</h1>-->
+        <!--opentype.js provides you with <strong>raw access</strong> to the glyphs so you can modify them as you please.-->
+    <!--</div>-->
 
-    <hr>
+    <!--<div id="glyphs">-->
+    <!--</div>-->
+    <!--<div class="message">Only the first 100 glyphs are shown.</div>-->
 
+    <!--<hr>-->
+
+    <!--<div class="explain">-->
+        <!--<h1>Free Software</h1>-->
+        <!--<p>opentype.js is available on <a href="https://github.com/nodebox/opentype.js">GitHub</a> under the <a href="https://raw.github.com/nodebox/opentype.js/master/LICENSE">MIT License</a>.</p>-->
+        <!--<p>Copyright &copy; 2013 Frederik De Bleser.</p>-->
+    <!--</div>-->
+
+    <!--<hr>-->
 
     <script type="text/javascript">
         var fontReady = false;
-        var fontSize = 200;
+        var fontSize = 600;
         var textToRender = "&amp;";
         var drawPoints = false;
         var kerning = true;
@@ -200,15 +95,14 @@
         // Custom
         var pointCount = 1;
         var pointDraw = 1;
-        var pushPointsDown = 0.4;
-        var pushPointsUp = 0.4;
-        var pointsBase1 = 1.1;
+        var pushPointsDown = .5;
+        var pushPointsUp = .5;
+        var pointsBase1 = 1;
         var pointsBase2 = 1;
+        var randMin = 1;
+        var randMax = 1000;
 
         //pointsbase = .02;
-
-
-
         function drawPointsChanged(e) {
             drawPoints = e.checked;
             renderText();
@@ -277,17 +171,15 @@
         function renderText() {
             if (!fontReady) return;
             textToRender = document.getElementById('textField').value;
-            previewPath = font.getPath(textToRender, {x: 200, y: 200, fontSize: fontSize, kerning: kerning});
-            snapPath = font.getPath(textToRender, {x: 200, y: 200, fontSize: fontSize, kerning: kerning});
+            previewPath = font.getPath(textToRender, {x: (window.innerWidth * .5) - fontSize * .5, y: window.innerHeight * .7, fontSize: fontSize, kerning: kerning});
+            snapPath = font.getPath(textToRender, {x: (window.innerWidth * .5) - fontSize * .5, y: window.innerHeight * .7, fontSize: fontSize, kerning: kerning});
             doSnap(snapPath);
             drawPath();
         }
 
-
-
         function drawPath() {
             var previewCtx = document.getElementById('preview').getContext("2d");
-            previewCtx.clearRect(0, 0, 900, 300);
+            previewCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
             if (previewPath) {
                 previewPath.draw(previewCtx);
                 if (drawPoints) {
@@ -298,15 +190,15 @@
                     for (i = 0; i < previewPath.commands.length; i++) {
                         var cmd = previewPath.commands[i];
                         if (cmd.type !== 'Z') {
-                            cmd.x += (pointsBase1 * pushPointsUp) - pushPointsDown;
-                            //cmd.y += (pointsBase2 * pushPointsUp) - pushPointsDown;
+                            cmd.x += (pointsBase1 * pushPointsUp) - Math.random(randMin, randMax);
+                            cmd.y += (pointsBase2 * pushPointsDown) - Math.random(randMin, randMax);
                         }
                     }
                     window.requestAnimationFrame(drawPath);
                 }
             }
             var snapCtx = document.getElementById('snap').getContext("2d");
-            snapCtx.clearRect(0, 0, 900, 300);
+            snapCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
             if (snapPath) {
                 snapPath.draw(snapCtx);
             }
@@ -344,7 +236,7 @@
             var amount = Math.min(100, font.glyphs.length);
             for (var i = 0; i < amount; i++) {
                 var glyph = font.glyphs[i];
-                var size = 150;
+                var size = 600;
                 var ctx = createCanvas(size, i);
                 var path = opentype.glyphToPath(glyph);
                 path.draw(ctx);
@@ -355,6 +247,69 @@
 
         };
         req.send(null);
+
+
+        // For resizing Canvas
+        (function() {
+        var canvas = document.getElementById('preview'),
+            context = canvas.getContext('2d');
+
+        var canvas2 = document.getElementById('snap'),
+            context = canvas.getContext('2d');
+
+
+        // resize the canvas to fill browser window dynamically
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            canvas2.width = window.innerWidth;
+            canvas2.height = window.innerHeight;
+
+            /**
+             * Your drawings need to be inside this function otherwise they will be reset when 
+             * you resize the browser window and the canvas goes will be cleared.
+             */
+            drawStuff(); 
+        }
+        resizeCanvas();
+
+        function drawStuff() {
+            // do your drawing stuff here
+        }
+        })();
+
+
+      /*
+      (function()
+      {
+      function showLength(e)
+      {
+          e = e || window.event;//ie doesn't pass event to callback
+          var target = e.target || e.srcElement;//ie== srcElement, good browsers: target
+          if (target.tagName.toLowerCase() === 'input' && target.type === 'text')
+          {
+              document.getElementById(target.id + 'Span').innerHTML = target.value.length;
+              console.log("sss");
+          }
+      }
+      //bind event listener to the div containing all elements you want 
+      // to be 'handled' 
+      var mainDiv = document.getElementById('text-input');
+      if (!(mainDiv.addEventListener))
+      {
+          //IE doesn't have EventListeners, and doesn't support onchange
+          //this way, use onfocusout
+          mainDiv.attachEvent('onfocusout',showLength);
+      }
+      else
+      {
+          mainDiv.addEventListener('keyup',showLength,false);
+      }
+      })();
+      */
 
     </script>
 </div>

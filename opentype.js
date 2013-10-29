@@ -20,11 +20,14 @@
         }
     }
 
+
+    var colorRand = '#'+Math.floor(Math.random()*16777215).toString(16);
+
     function Path() {
         this.commands = [];
-        this.fill = '#1919E3'; // Change The Hex Color Here
-        this.stroke = '#1919E3';  // Change The Hex Color Here
-        this.strokeWidth = 1;
+        this.fill = "95D1B1"; // Change The Hex Color Here
+        this.stroke = "95D1B1";
+        this.strokeWidth = 0;
     }
 
     // Uses adds the below array to the Path Contructor
