@@ -1,3 +1,9 @@
+opentype.js (Forked for a better interface).
+===========
+UI modifications to opentype.js to use it as a playground for type.
+
+
+
 opentype.js
 ===========
 opentype.js is a JavaScript parser for TrueType and OpenType fonts.
