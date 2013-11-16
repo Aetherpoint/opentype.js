@@ -44,8 +44,19 @@ section.controls input {
     border: none;
     border: solid 1px #DDD;
     margin: 1em 0;
-
     transition: all 0.5s ease;
+}
+
+label {
+    display: block;
+    border-bottom: solid #eee 2px;
+    padding: 1em 0 1em 0;
+}
+
+input[type="checkbox"] {
+    width: 20% !important;
+    /*display: inline-block !important;*/
+    border: solid red 1px !important;
 }
 
 section.controls input:focus, section.controls input:active {
