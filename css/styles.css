@@ -12,16 +12,37 @@ a {
 }
 
 
+/*.distortion {*/
+/*}*/
 
 .distortion {
-    
+    /*position: -webkit-sticky;*/
+    /*position: -moz-sticky;*/
+    /*position: -ms-sticky;*/
+    /*position: -o-sticky;*/
+    /*position: sticky;*/
+
+    position: absolute;
 }
+
+.distortion canvas, .redux canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/*.distortion canvas {*/
+    /*margin-top: -35%;*/
+/*}*/
+
+/*.fixedsticky { */
+    /*top: 0; */
+/*}*/
 
 section.controls {
 
     width: 20%;
     float: right;
-    padding: 2em;
+    padding: 2em 2em 0 2em;
     margin-right: 4%;
 
     position: -webkit-sticky;
@@ -48,15 +69,28 @@ section.controls input {
 }
 
 label {
-    display: block;
+    display: inline-block;
     border-bottom: solid #eee 2px;
     padding: 1em 0 1em 0;
+    width: 100%;
+}
+
+label span {
+    width: 20%;
+    display: inline-block;
+}
+
+input[type="range"] {
+    /*width: 70% !important;*/
+    display: inline-block !important;
+    /*float: right;*/
+
+    /*display: inline-block !important;*/
 }
 
 input[type="checkbox"] {
-    width: 20% !important;
+    width: 10% !important;
     /*display: inline-block !important;*/
-    border: solid red 1px !important;
 }
 
 section.controls input:focus, section.controls input:active {
@@ -69,13 +103,3 @@ section.controls label {
     font-style: italic;
 }
 
-.distortion {
-    /*margin: -1em 0 10em 0;*/
-    position: absolute;
-    /*clear: all;*/
-    pointer-events: none;
-}
-
-.redux {
-
-}

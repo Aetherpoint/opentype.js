@@ -4,11 +4,13 @@
     <title>Type Thresher, Built with Opentype.js</title>
     <meta description="A JavaScript library to manipulate the letterforms of text from the browser or node.js.">
     <meta charset="utf-8">
+
     <script type="text/javascript" src="opentype.js"></script>
+    <script type="text/javascript" src="bower_components/filament-sticky/fixedsticky.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-
+    
     
 </head>
 <body>
@@ -19,29 +21,23 @@
     <!--</div>-->
 <!--</div>-->
 
-    <div class="distortion">
+    <div class="distortion fixedsticky">
         <canvas id="preview" width="1200" height="900" class="text"></canvas>
     </div>
-
-    <section class="controls">
-        <input type="text" class="text-input" onkeyup="renderText()" value="&amp;"
-               autofocus id="textField">
+    
+    <section class="controls fixedsticky">
+        <input type="text" class="text-input" placeholder="Enter a character to distort" onkeyup="renderText()" value="5" autofocus id="textField">
         <label>Font Size<input type="range" min="10" max="1000" value="600" onchange="fontSizeChanged(this)"/><span id="fontSize">600</span></label>
         <label><input type="checkbox" onchange="drawPointsChanged(this)">Draw Points</label>
         <label><input type="checkbox" onchange="kerningChanged(this)" checked="checked"/>Kerning</label>
         <label><input type="checkbox" onchange="animationChanged(this)" checked="checked"/>Animate</label>
     </section>
 
-    <!--<hr>-->
-
-    <!--<div class="explain">-->
-        <!--Once you have the shapes, you can modify them, for example by <strong>snapping</strong> them to a virtual grid:-->
-    <!--</div>-->
-    <div class="redux">
+    <div class="redux fixedsticky">
         <canvas id="snap" width="1200" height="600" class="text"></canvas>
     </div>
 
-    <section class="controls">
+    <section class="controls fixedsticky">
         <label>Strength <input type="range" min="0" max="100" value="80" onchange="snapStrengthChanged(this)"/><span id="snapStrength">80</span></label>
         <label>Distance<input type="range" min="0" max="100" value="53" onchange="snapDistanceChanged(this)"/><span id="snapDistance">53</span></label>
         <label>X<input type="range" min="-100" max="100" value="0" onchange="snapXChanged(this)"/><span id="snapX">0</span></label>
@@ -312,6 +308,10 @@
       */
 
     </script>
+
+    <script>
+		$( '.controls , .distortion, .redux' ).fixedsticky();
+		</script>
 </div>
 </body>
 </html>
