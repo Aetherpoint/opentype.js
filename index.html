@@ -203,18 +203,18 @@
         // Create a canvas and adds it to the document.
         // Returns the 2d drawing context.
         function createCanvas(size, glyphIndex) {
-            var canvasId, html, glyphsDiv, wrap, canvas, ctx;
-            canvasId = 'c' + glyphIndex;
-            html = '<div class="wrapper" style="width:' + size + 'px"><canvas id="' + canvasId + '" width="' + size + '" height="' + size + '"></canvas><span>' + glyphIndex + '</span></div>';
-            glyphsDiv = document.getElementById('glyphs');
-            wrap = document.createElement('div');
-            wrap.innerHTML = html;
-            glyphsDiv.appendChild(wrap);
-            canvas = document.getElementById(canvasId);
-            ctx = canvas.getContext('2d');
-            ctx.translate(50, 100);
-            ctx.scale(1 / 2048 * 72, 1 / 2048 * 72);
-            return ctx;
+            //var canvasId, html, glyphsDiv, wrap, canvas, ctx;
+            //canvasId = 'c' + glyphIndex;
+            //html = '<div class="wrapper" style="width:' + size + 'px"><canvas id="' + canvasId + '" width="' + size + '" height="' + size + '"></canvas><span>' + glyphIndex + '</span></div>';
+            //glyphsDiv = document.getElementById('glyphs');
+            //wrap = document.createElement('div');
+            //wrap.innerHTML = html;
+            //glyphsDiv.appendChild(wrap);
+            //canvas = document.getElementById(canvasId);
+            //ctx = canvas.getContext('2d');
+            //ctx.translate(50, 100);
+            //ctx.scale(1 / 2048 * 72, 1 / 2048 * 72);
+            //return ctx;
         }
 
         var req = new XMLHttpRequest();
