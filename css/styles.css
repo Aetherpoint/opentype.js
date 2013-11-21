@@ -4,6 +4,7 @@ body {
     padding: 0;
     overflow-x: hidden;
     font-family: 'hoeflertext', georgia;
+    overflow:hidden;
 }
 
 a {
@@ -23,6 +24,7 @@ a {
     /*position: sticky;*/
 
     position: absolute;
+    
 }
 
 .distortion canvas, .redux canvas {
