@@ -1,4 +1,4 @@
-opentype.js (Forked for a better interface).
+opentypeui.js 
 ===========
 UI modifications to opentype.js to use it as a playground for type.
 
