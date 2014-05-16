@@ -1,4 +1,4 @@
-opentypeui.js 
+opentype-playground.js 
 ===========
 UI modifications to opentype.js to use it as a playground for type.
 
